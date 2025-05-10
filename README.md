@@ -15,7 +15,7 @@ Jaya Jaya Institut merupakan institusi pendidikan tinggi yang telah berdiri seja
 
 ### Persiapan
 
-Sumber data: (https://github.com/Ezraliano/submission_akhir_data_science_final1/blob/main/data.csv)
+Sumber data: (https://github.com/Ezraliano/Submission_Akhir_Data_Science_Revisi/blob/main/data.csv)
 
 ## Set Up Metabase:
 1. Jalankan perintah berikut pada Terminal/Command Prompt/PowerShell guna memanggil (pull) Docker image untuk menjalankan Metabase.
@@ -42,6 +42,13 @@ df.to_sql('orders', engine)
 3. Kemudian gunakan transaction pooler untuk menghubungkan supabase dengan metabase
 
 postgresql://postgres.hhjaouxzsxzsvvkauicu:[YOUR-PASSWORD]@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres
+
+## Set Up Streamlit
+link : https://ezraliano-submission-akhir-data-science-revisi-modelapp-wjhtlt.streamlit.app/
+1. Jalankan perintah "python -m streamlit run model/app.py" kemudian streamlit akan running
+2. Streamlit akan menampilkan aplikasi sederhana yang dapat digunakan untuk memprediksi mahasiswa dropout.
+3. Anda dapat mencoba aplikasinya
+4. Aplikasi sudah di deploy ke streamlit cloud. berikut link nya "https://ezraliano-submission-akhir-data-science-revisi-modelapp-wjhtlt.streamlit.app/"
 
 ## Business Dashboard
 Berikut Link untuk mengakses dashboard "http://localhost:3000/dashboard/2-jaya-jaya-institute-dashboard"
