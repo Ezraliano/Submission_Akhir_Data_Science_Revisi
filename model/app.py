@@ -17,10 +17,9 @@ Original file is located at
 ### Menyiapkan library yang dibutuhkan
 """
 
-"!pip install streamlit"
 
-"""Deskripsi :
-Menginstall stremlit
+
+"""
 """
 
 import pandas as pd
@@ -37,31 +36,19 @@ from imblearn.over_sampling import SMOTE
 from imblearn.pipeline import Pipeline as ImbPipeline
 import streamlit as st
 
-"""Deskripsi :
-Mengimport Library yang digunakan untuk manipulasi data (pandas, numpy), visualisasi (matplotlib, seaborn), preprocessing dan pemodelan (scikit-learn), penanganan data tidak seimbang (imblearn), penyimpanan model (joblib), dan antarmuka pengguna (streamlit).
 
-### Menyiapkan data yang akan diguankan
-
-## Data Understanding
-"""
 
 # 1. Load Dataset
 data = pd.read_csv('https://raw.githubusercontent.com/Ezraliano/submission_akhir_data_science_final1/refs/heads/main/data.csv')
 data.head()
 
-"""Deskripsi :
-Melakukan load dataset
 
-## EDA (Univariate Analysis)
-"""
 
 # Set style untuk visualisasi agar lebih rapi
 sns.set(style="whitegrid")
 plt.style.use("ggplot")
 
-"""Deskripsi :    
-Menambahkan whitegrid agar visualisasi terlihat jelas dan rapi
-"""
+
 
 # Distribusi Variabel Target (Status)
 plt.figure(figsize=(6,4))
@@ -71,9 +58,7 @@ plt.xlabel('Status')
 plt.ylabel('Jumlah')
 plt.show()
 
-"""Deskripsi :
-Menggunakan countplot untuk melihat distribusi variabel target (Status), misalnya jumlah mahasiswa yang lulus vs. dropout.
-"""
+
 
 #  Distribusi Variabel Numerik
 numerical_cols = data.select_dtypes(include=['int64', 'float64']).columns.tolist()
@@ -94,9 +79,7 @@ for col in numerical_cols:
     plt.tight_layout()
     plt.show()
 
-"""Deskripsi :
-Melakukan visualisasi untuk melihat distribusi data variabel numerik. Visualisasi menggunakan histogram dan boxplot.
-"""
+
 
 categorical_cols = data.select_dtypes(include=['object']).columns.tolist()
 
@@ -108,24 +91,20 @@ for col in categorical_cols:
     plt.ylabel(col)
     plt.show()
 
-"""Deskripsi :
-Melakukan visualisasi untuk melihat distribusi data variabel kategorikal. Visualisasi menggunakan bar chart
 
-## Data Preparation / Preprocessing
-"""
 
 # 4. Data Preprocessing
 # Pisahkan fitur dan target
 X = data.drop('Status', axis=1)
 y = data['Status']
 
-"""Deskripsi : Melakukan split data yang dimana Fitur (X): Semua kolom kecuali Status dan Target (y): Kolom Status."""
+
 
 # Identifikasi kolom kategorikal dan numerik
 categorical_cols = X.select_dtypes(include=['object']).columns
 numerical_cols = X.select_dtypes(include=['int64', 'float64']).columns
 
-"""Deskripsi : Melakukan identifikasi Kolom kategorikal: Kolom dengan tipe data object dan Kolom numerik: Kolom dengan tipe data int64 atau float64"""
+
 
 # Buat pipeline preprocessing
 preprocessor = ColumnTransformer(
@@ -134,15 +113,12 @@ preprocessor = ColumnTransformer(
         ('cat', OneHotEncoder(drop='first'), categorical_cols)
     ])
 
-"""Deskripsi : Menggunakan ColumnTransformer untuk menerapkan StandardScaler (menskalakan fitur numerik) dan OneHotEncoder (mengkodekan fitur kategorikal, menghapus satu kategori untuk menghindari multicollinearity)."""
+
 
 # Split data menjadi training dan testing
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-"""Deskripsi : Data dibagi menjadi 80% training (X_train, y_train) dan 20% testing (X_test, y_test) dengan random_state=42 untuk reproduktibilitas
 
-## Modeling
-"""
 
 # 5. Modeling
 # Buat pipeline dengan preprocessing, SMOTE, dan Random Forest
@@ -152,15 +128,12 @@ model_pipeline = ImbPipeline([
     ('classifier', RandomForestClassifier(n_estimators=100, random_state=42))
 ])
 
-"""Deskripsi : Menggunakan ImbPipeline dari imblearn untuk menggabungkan preprocessing, oversampling, dan klasifikasi."""
+
 
 # Latih model
 model_pipeline.fit(X_train, y_train)
 
-"""Deskripsi : Proses melatih model
 
-## Evaluation
-"""
 
 # 6. Evaluation
 # Prediksi pada data testing
@@ -177,7 +150,7 @@ plt.xlabel('Predicted')
 plt.ylabel('Actual')
 plt.show()
 
-"""Deskripsi : Membuat barplot untuk 15 fitur terpenting."""
+
 
 # Feature Importance
 # Dapatkan nama fitur setelah preprocessing
@@ -187,7 +160,7 @@ if len(categorical_cols) > 0:
                      .named_transformers_['cat']
                      .get_feature_names_out(categorical_cols).tolist())
 
-"""Deskripsi : Mengambil nilai pentingnya fitur dari model Random Forest (feature_importances_)."""
+
 
 # Dapatkan feature importances
 importances = model_pipeline.named_steps['classifier'].feature_importances_
@@ -195,7 +168,7 @@ feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': im
 feature_importance_df = feature_importance_df.sort_values(by='Importance', ascending=False)
 print("Feature Importance:\n", feature_importance_df.head(10))
 
-"""Deskripsi : Membuat DataFrame untuk menyimpan nama fitur dan nilai kepentingannya, diurutkan dari yang terbesar"""
+
 
 # Visualisasi feature importance
 plt.figure(figsize=(10, 6))
@@ -203,13 +176,13 @@ sns.barplot(x='Importance', y='Feature', data=feature_importance_df.head(15))
 plt.title('Top 10 Fitur Paling Penting')
 plt.show()
 
-"""Deskripsi : Menampilkan 10 fitur teratas."""
+
 
 # Bagian Streamlit
 st.title("Prediksi Status Dropout Mahasiswa")
 st.write("Silakan masukkan data mahasiswa di bawah ini:")
 
-"""Deskripsi : Menggunakan streamlit untuk membuat aplikasi web interaktif"""
+
 
 # Ambil kolom-kolom input dari data
 user_input = {}
@@ -220,7 +193,7 @@ for col in X.columns:
     else:
         user_input[col] = st.number_input(f"{col}", float(data[col].min()), float(data[col].max()))
 
-"""Deskripsi : Untuk kolom kategorikal: Menampilkan dropdown (selectbox) dengan nilai unik dari dataset. Untuk kolom numerik: Menampilkan input numerik (number_input) dengan batas minimum dan maksimum dari dataset"""
+
 
 # Jika tombol ditekan
 if st.button("Prediksi"):
@@ -233,4 +206,3 @@ if st.button("Prediksi"):
     # Tampilkan hasil
     st.success(f"Status Mahasiswa yang Diprediksi: **{prediction}**")
 
-"""Deskripsi : Ketika tombol "Prediksi" ditekan, input pengguna diubah menjadi DataFrame. Model memprediksi status berdasarkan input dan menampilkan hasilnya (misalnya, "Dropout" atau "Graduate")."""
