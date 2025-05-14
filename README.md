@@ -93,7 +93,9 @@ streamlit run app.py
 
 
 ## Conclusion
-Model machine learning yang dibangun mampu memprediksi status mahasiswa berdasarkan atribut historis mereka seperti nilai akademik, admission grade, dan jumlah SKS. Dashboard yang dibuat memberikan insight visual yang membantu pihak manajemen dalam memantau performa mahasiswa dan mengambil keputusan strategis.
+Proyek ini berhasil membangun sistem prediktif menggunakan model Random Forest yang dikombinasikan dengan teknik SMOTE untuk menangani ketidakseimbangan data. Model ini mampu memprediksi status mahasiswa (aktif, lulus, atau dropout) secara cukup akurat dengan mengandalkan data historis seperti nilai akademik, admission grade, dan jumlah SKS.
+Selain itu, dashboard interaktif yang dikembangkan melalui Metabase memungkinkan pihak manajemen untuk memantau performa mahasiswa, mengidentifikasi pola dropout, dan memahami karakteristik mahasiswa berdasarkan berbagai indikator penting seperti mahasiswa pemegang scholarship, nilai akademik mahasiswa, dan lain sebagainya.
+Dengan adanya sistem prediksi ini, Jaya Jaya Institut kini memiliki alat yang mendukung pengambilan keputusan strategis untuk mengurangi angka dropout, melalui intervensi lebih dini dan pemberian bimbingan khusus bagi mahasiswa berisiko tinggi.
 
 ### Rekomendasi Action Items
 Berikut merupakan beberapa rekomendasi action Items :
