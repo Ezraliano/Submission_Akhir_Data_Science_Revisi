@@ -50,6 +50,15 @@ link : https://ezraliano-submission-akhir-data-science-revisi-modelapp-wjhtlt.st
 3. Anda dapat mencoba aplikasinya
 4. Aplikasi sudah di deploy ke streamlit cloud. berikut link nya "https://ezraliano-submission-akhir-data-science-revisi-modelapp-wjhtlt.streamlit.app/"
 
+
+## Set Up Virtual Environment
+1. Membuat dan mengaktifkan Virtual Environment 
+python -m venv venv  
+2. Mengaktifkan Environment di Windows
+venv\Scripts\activate   
+3. Install semua dependensi
+pip install -r requirements.txt    
+
 ## Business Dashboard
 Berikut Link untuk mengakses dashboard "http://localhost:3000/dashboard/2-jaya-jaya-institute-dashboard"
 Dataset ini memiliki .. kolom, berikut penjelasannya :
